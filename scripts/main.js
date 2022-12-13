@@ -1,5 +1,5 @@
-const dealerHand = document.getElementById("dealer-hand");
-const playerHand = document.getElementById("player-hand");
+import { startingLogic } from "./gameLogic.js";
+
 const deck = [];
 const suits = ["hearts", "spades", "clubs", "diamonds"];
 const ranks = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king"];
@@ -20,4 +20,5 @@ for (let suit of suits) {
 
 window.addEventListener("DOMContentLoaded", () => {
   // Execute after page load
+  startingLogic(deck);
 });
