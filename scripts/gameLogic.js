@@ -24,19 +24,25 @@ const createCardElements = (cards, playerHTMLContainer) => {
       const cardImg = document.createElement("img");
       cardImg.src = `./images/${card.rank}_of_${card.suit}.png`;
       if (playerHTMLContainer.id === "dealer-hand") {
-        cardImg.classList = "back";
+        cardImg.classList = "dealer-back ";
       }
+
       playerHTMLContainer.append(cardImg);
     });
+    if (playerHTMLContainer.id === "dealer-hand") {
+      console.log(playerHTMLContainer.childNodes);
+      playerHTMLContainer.childNodes[5].classList = "front";
+    }
   }
 };
 
 const createPointElements = (score, playerHTMLElement) => {
   playerHTMLElement.innerText = score;
 };
+// const currentScore = calculateScore(["ace", 13])
+//
 
-const calculateScore = (hand) => {
-  let score = 0;
+const calculateScore = (hand = [], score = 0) => {
   for (const card of hand) {
     switch (card.rank) {
       case "queen":
@@ -59,7 +65,7 @@ const calculateScore = (hand) => {
   }
   return score;
 };
-
+console.log(calculateScore(["ace", "ace"]));
 export const gameLogic = (playerScore, dealerScore) => {
   if (playerScore > 21) return false;
   if (dealerScore >= 21) return false;
@@ -77,9 +83,22 @@ export const startingLogic = (deck) => {
   const dealersCards = dealStartingHands(gameDeck);
   let playerScore = calculateScore(playersCards);
   let dealerScore = calculateScore(dealersCards);
-
+  console.log(dealerScore);
   createCardElements(playersCards, playerHand);
   createCardElements(dealersCards, dealerHand);
   createPointElements(dealerScore, dealerSpan);
   createPointElements(playerScore, playerSpan);
 };
+
+// export const gameFlow = () => {
+// hit
+// create the card they hit
+// check if the score is over 21 or === 21
+// if they click stand, do stand logic
+//     let keepPlaying = true
+
+//     while(keepPlaying){
+
+//     }
+
+// }

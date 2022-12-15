@@ -1,5 +1,7 @@
 import { startingLogic } from "./gameLogic.js";
-
+const dealButton = document.querySelector("#deal-button");
+const standButton = document.querySelector("#stand-button");
+const dealerContainer = document.querySelector("#dealer-hand");
 const deck = [];
 const suits = ["hearts", "spades", "clubs", "diamonds"];
 const ranks = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king"];
@@ -9,6 +11,7 @@ const makeDeck = (rank, suit) => {
     suit: suit,
     pointValue: rank > 10 ? 10 : rank,
   };
+
   deck.push(card);
 };
 
@@ -18,7 +21,16 @@ for (let suit of suits) {
   }
 }
 
+const turnCards = () => {
+  for (const card of dealerContainer.childNodes) {
+    if (card.localName === "img") {
+      card.classList = "front";
+    }
+  }
+};
+
+dealButton.addEventListener("click", () => startingLogic(deck));
+standButton.addEventListener("click", turnCards);
 window.addEventListener("DOMContentLoaded", () => {
   // Execute after page load
-  startingLogic(deck);
 });
